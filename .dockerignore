@@ -1,0 +1,6 @@
+# General directories
+.git
+
+# Dockerfiles (improve security)
+compose/**/Dockerfile
+docker-compose*.yml

@@ -1,0 +1,31 @@
+version: '3.8'
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: ./compose/php/Dockerfile
+    restart: on-failure
+    ports:
+      - 8000:8000
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+
+  db:
+    build:
+      context: .
+      dockerfile: ./compose/postgresql/Dockerfile
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    volumes:
+      - ./storage/pgdata:/var/lib/postgresql/data
+
+networks:
+  laravel-api:
+    driver: bridge
